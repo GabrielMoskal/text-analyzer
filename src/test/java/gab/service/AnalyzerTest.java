@@ -24,7 +24,7 @@ public class AnalyzerTest {
     @ValueSource(strings = {"word", "different", "other"})
     public void analyze_OneWordGiven_ShouldReturnValidTokens(String word) {
         AnalyzedWord expected = createAnalyzedWord(word, 1, 1);
-        List<AnalyzedWord> actual = analyzer.analyze(word);
+        Collection<AnalyzedWord> actual = analyzer.analyze(word);
         assertEquals(List.of(expected), actual);
     }
 
@@ -40,7 +40,7 @@ public class AnalyzerTest {
                 createAnalyzedWord("ccc", 1, 3)
         );
 
-        List<AnalyzedWord> actual = analyzer.analyze("aaa bbb ccc");
+        Collection<AnalyzedWord> actual = analyzer.analyze("aaa bbb ccc");
         assertEquals(expected, actual);
     }
 
@@ -51,7 +51,7 @@ public class AnalyzerTest {
                 new AnalyzedWord("b", 1, List.of(1)),
                 new AnalyzedWord("c", 1, List.of(2))
         );
-        List<AnalyzedWord> actual = analyzer.analyze("b c a");
+        Collection<AnalyzedWord> actual = analyzer.analyze("b c a");
         assertEquals(expected, actual);
     }
 
@@ -60,7 +60,7 @@ public class AnalyzerTest {
         List<AnalyzedWord> expected = List.of(
                 new AnalyzedWord("word", 3, List.of(1, 2, 3))
         );
-        List<AnalyzedWord> actual = analyzer.analyze("word word word");
+        Collection<AnalyzedWord> actual = analyzer.analyze("word word word");
         assertEquals(expected, actual);
     }
 
@@ -71,19 +71,19 @@ public class AnalyzerTest {
                 createAnalyzedWord("bbb", 1, 2),
                 createAnalyzedWord("ccc", 2, 4, 5)
         );
-        List<AnalyzedWord> actual = analyzer.analyze("aaa bbb aaa ccc ccc");
+        Collection<AnalyzedWord> actual = analyzer.analyze("aaa bbb aaa ccc ccc");
         assertEquals(expected, actual);
     }
 
     @Test
     public void analyze_EmptyStringGiven_ShouldReturnEmptyList() {
-        List<AnalyzedWord> actual = analyzer.analyze("");
+        Collection<AnalyzedWord> actual = analyzer.analyze("");
         assertTrue(actual.isEmpty());
     }
 
     @Test
     public void analyze_PunctuationGiven_ShouldReturnEmptyList() {
-        List<AnalyzedWord> actual = analyzer.analyze(",.:;?!-");
+        Collection<AnalyzedWord> actual = analyzer.analyze(",.:;?!-");
         assertTrue(actual.isEmpty());
     }
 
@@ -93,7 +93,7 @@ public class AnalyzerTest {
                 createAnalyzedWord("aaa", 2, 1, 3),
                 createAnalyzedWord("bbb", 1, 2)
         );
-        List<AnalyzedWord> actual = analyzer.analyze(",aaa,. bbb:-aaa");
+        Collection<AnalyzedWord> actual = analyzer.analyze(",aaa,. bbb:-aaa");
         assertEquals(expected, actual);
     }
 
@@ -103,7 +103,7 @@ public class AnalyzerTest {
                 createAnalyzedWord("aaa", 1, 1),
                 createAnalyzedWord("bbb", 1, 2)
         );
-        List<AnalyzedWord> actual = analyzer.analyze("aaa\nbbb");
+        Collection<AnalyzedWord> actual = analyzer.analyze("aaa\nbbb");
         assertEquals(expected, actual);
     }
 
@@ -112,7 +112,7 @@ public class AnalyzerTest {
         List<AnalyzedWord> expected = List.of(
                 createAnalyzedWord("aaa", 3, 1, 2, 3)
         );
-        List<AnalyzedWord> actual = analyzer.analyze("aaa AAA aAa");
+        Collection<AnalyzedWord> actual = analyzer.analyze("aaa AAA aAa");
         assertEquals(expected, actual);
     }
 
@@ -122,8 +122,8 @@ public class AnalyzerTest {
                 createAnalyzedWord("gęślą", 1, 2),
                 createAnalyzedWord("jaźń", 1, 3),
                 createAnalyzedWord("zażółć", 1, 1)
-                );
-        List<AnalyzedWord> actual = analyzer.analyze("Zażółć gęślą jaźń");
+        );
+        Collection<AnalyzedWord> actual = analyzer.analyze("Zażółć gęślą jaźń");
         assertEquals(expected, actual);
     }
 }

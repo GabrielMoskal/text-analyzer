@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @AllArgsConstructor
@@ -20,8 +20,8 @@ public class TextAnalyzerController {
     private Analyzer analyzer;
 
     @PostMapping("/analyze")
-    public ResponseEntity<List<AnalyzedWord>> analyze(@RequestBody @Valid Text text) {
-        List<AnalyzedWord> words = analyzer.analyze(text.getText());
+    public ResponseEntity<Collection<AnalyzedWord>> analyze(@RequestBody @Valid Text text) {
+        Collection<AnalyzedWord> words = analyzer.analyze(text.getText());
         return new ResponseEntity<>(words, HttpStatus.OK);
     }
 }
